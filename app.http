@@ -1,0 +1,132 @@
+# API REST
+###
+GET http://localhost:5000/api/ok
+###
+GET http://localhost:5000/api/restaurants
+
+POST http://localhost:5000/api/restaurants
+Content-Type: application/json
+
+{
+    "name": "KFC",
+    "description": "Fried Chicken",
+    "contact_phone": "1234567890",
+    "phone_verified": false,
+    "email": "",
+    "email_verified": false,
+    "confirmation_code": null
+}
+
+###
+GET http://localhost:5000/api/states
+
+
+###
+GET http://localhost:5000/api/drivers
+
+
+###
+GET http://localhost:5000/api/cities
+
+
+###
+GET http://localhost:5000/api/users
+
+
+###
+POST http://localhost:5000/api/users
+Content-Type: application/json
+
+{ 
+    "name": "Eric Ngechu",
+    "contact_phone": "1234567890",
+    "phone_verified": false,
+    "email": "ericngechu@example.com",
+    "email_verified": false,
+    "confirmation_code": null,
+    "password": "123456"
+}
+
+###
+DELETE http://localhost:5000/api/users/7
+
+###
+DELETE http://localhost:5000/api/users/8
+
+###
+DELETE http://localhost:5000/api/users/9
+
+###
+GET http://localhost:5000/api/addresses
+
+
+###
+GET http://localhost:5000/api/orders
+
+
+###
+GET http://localhost:5000/api/comments
+
+
+###
+GET http://localhost:5000/api/categories
+
+
+###
+GET http://localhost:5000/api/menuItems
+
+
+###
+GET http://localhost:5000/api/restaurantOwners
+
+
+###
+GET http://localhost:5000/api/orderStatuses
+
+
+###
+GEt http://localhost:5000/api/status_catalogs
+
+
+###
+GET http://localhost:5000/api/order_menu_items
+
+
+###
+GET http://localhost:5000/api/states_with_cities
+
+
+###
+POST http://localhost:5000/api/auth/register
+Content-Type: application/json
+
+    {
+        "user_id": 6,
+        "username": "Maximum Joe",
+        "password": "pass"
+    
+    }
+
+
+###
+POST http://localhost:5000/api/auth/register
+Content-Type: application/json
+
+    {
+        "user_id": 5,
+        "username": "Bob Brown",
+        "password": "pass",
+        "role": "admin"
+    
+    }
+###
+POST http://localhost:5000/api/auth/login
+Content-Type: application/json
+    
+
+        {
+            "username": "Bob Brown",
+            "password": "pass"
+          
+        
+        }
