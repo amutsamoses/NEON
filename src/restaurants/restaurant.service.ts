@@ -2,12 +2,9 @@ import { eq } from "drizzle-orm";
 
 import db from "../drizzle/db";
 
-import { Context } from "hono";
-
 import { TSRestaurant, TIRestaurant, Restaurant } from "../drizzle/schema";
 
-export const getRestaurantService = async (
-): Promise<TSRestaurant[]> => {
+export const getRestaurantService = async (): Promise<TSRestaurant[]> => {
   return await db.query.Restaurant.findMany();
 };
 
@@ -39,3 +36,31 @@ export const deleteRestaurantService = async (id: number) => {
   await db.delete(Restaurant).where(eq(Restaurant.id, id));
   return "Restaurant deleted successfully";
 };
+
+export const restaurantWithMenuItemsAndOrderService = async () => {
+  return await db.query.Restaurant.findFirst({
+    with: {
+      menuItems: true,
+      orders: {
+        with: {
+          user: true,
+          deliveryAddress: true,
+          driver: true,
+        },
+      },
+    },
+  });
+};
+// await db.query.restaurant.findOne({
+//   where: { id: restaurantId },
+//   with: {
+//     menuItems: true,
+//     orders: {
+//       with: {
+//         user: true,
+//         deliveryAddress: true,
+//         driver: true
+//       }
+//     }
+//   }
+// });

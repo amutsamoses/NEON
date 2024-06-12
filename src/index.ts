@@ -21,6 +21,7 @@ import { serve } from "@hono/node-server";
 import { HTTPException } from "hono/http-exception";
 import { logger } from "hono/logger";
 import { csrf } from "hono/csrf";
+import { html, raw } from "hono/html";
 import { trimTrailingSlash } from "hono/trailing-slash";
 
 //Routes imports
@@ -57,8 +58,23 @@ app.use(csrf()); // adds csrf token to the response header preventing csrf attac
 //default route
 app.use(trimTrailingSlash()); // removes trailing slashes from the url
 
-app.get("ok", (c) => {
-  return c.text("The server is running😀");
+app.get("/ok", (c) => {
+  return c.html(
+    html`
+      <h1>Welcome to Restaurant Mng API</h1>
+      <p>API is running successfully</p>
+      <p>API is running on port ${process.env.PORT}</p>
+      <ul>
+        <li><b>message: "Welcome to Restaurant Mng API😀"</b></li>
+        <br />
+        <li><b>version: "1.0.0",</b></li>
+        <br />
+        <li>
+          <b>docs:</b> "Please visit the documentation for more information",
+        </li>
+      </ul>
+    `
+  );
 });
 
 app.get("/timeout", async (c) => {

@@ -6,6 +6,7 @@ import {
   getSingleOrderService,
   getOrderService,
   updateOrderService,
+  orderWithAllDetailService,
 } from "./order.service";
 import { Orders } from "../drizzle/schema";
 
@@ -81,6 +82,18 @@ export const deleteOrder = async (c: Context) => {
     if (!res) return c.text("user not deleted!👽", 404);
 
     return c.json({ msg: res }, 201);
+  } catch (error: any) {
+    return c.json({ error: error?.message }, 400);
+  }
+};
+
+export const orderWithAllDetail = async (c: Context) => {
+  try {
+    const data = await orderWithAllDetailService();
+    if (data == null) {
+      return c.text("No data found", 404);
+    }
+    return c.json(data, 200);
   } catch (error: any) {
     return c.json({ error: error?.message }, 400);
   }

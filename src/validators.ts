@@ -26,7 +26,7 @@ export const driverSchema = z.object({
   car_make: z.string(),
   car_model: z.string(),
   car_year: z.number(),
-  userId: z.number(),
+  user_id: z.number(),
   online: z.boolean(),
   delivering: z.boolean(),
 });
@@ -34,17 +34,20 @@ export const driverSchema = z.object({
 export const citySchema = z.object({
   // "id": 4,
   name: z.string(),
-  stateId: z.number(),
+  state_id: z.number(),
 });
 
 export const orderSchema = z.object({
-  id: z.number(),
   restaurant_id: z.number(),
+  estimated_delivery_time: z.string(),
+  actual_delivery_time: z.string(),
   delivery_address_id: z.number(),
   user_id: z.number(),
   driver_id: z.number(),
   price: z.number(),
+  discount: z.string(),
   final_price: z.number(),
+  comment: z.string(),
 });
 
 export const addressSchema = z.object({
@@ -76,6 +79,7 @@ export const menuItemSchema = z.object({
   description: z.string(),
   ingredients: z.string(),
   price: z.number(),
+  active: z.boolean(),
 });
 
 export const restaurantOwnerSchema = z.object({

@@ -341,6 +341,7 @@ export const orderRelations = relations(Orders, ({ one, many }) => ({
   orderStatuses: many(OrderStatus),
 }));
 
+// RestaurantOwner and Restaurant relationship
 export const restaurantOwnerRelations = relations(
   RestaurantOwner,
   ({ one }) => ({
@@ -352,6 +353,13 @@ export const restaurantOwnerRelations = relations(
       fields: [RestaurantOwner.restaurant_id],
       references: [Restaurant.id],
     }),
+  })
+);
+//restaurant owner with restaurant relationship
+export const restaurantOwnerRestaurantRelations = relations(
+  RestaurantOwner,
+  ({ many }) => ({
+    restaurant: many(Restaurant),
   })
 );
 

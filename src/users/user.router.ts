@@ -6,6 +6,7 @@ import {
   createUser,
   updateUser,
   deleteUser,
+  userWithOrder,
 } from "./user.controller";
 import { userSchema } from "../validators";
 import {
@@ -48,14 +49,4 @@ userRouter.post(
 userRouter.put("/users/:id", updateUser);
 userRouter.delete("/users/:id", deleteUser);
 
-//get single user
-// userRouter.get("/users/:id", (c: Context) => {
-//     const id = Number(c.req.param("id"));
-//     const user = users.find((user) => user.id === id)
-
-//     if (!user){
-//         return c.text("user not found!😶‍🌫️👽", 404)
-//     }
-
-//     return c.json(user, 200)
-// })
+userRouter.get("/users_with_orders", userWithOrder);

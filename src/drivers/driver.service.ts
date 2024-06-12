@@ -36,3 +36,33 @@ export const deleteDriverService = async (id: number) => {
   await db.delete(Driver).where(eq(Driver.id, id));
   return "user deleted successfully!😑";
 };
+
+export const driverWithOrderService = async () => {
+  return await db.query.Driver.findFirst({
+    // where: { id: driverId },
+    with: {
+      orders: {
+        with: {
+          user: true,
+          restaurant: true,
+          deliveryAddress: true,
+        },
+      },
+    },
+  });
+};
+
+// export const driverWithOrderService = async (driverId: number) => {
+//   return await db.query.Driver.findFirst({
+//     where: { id: driverId },
+//     with: {
+//       orders: {
+//         with: {
+//           user: true,
+//           restaurant: true,
+//           deliveryAddress: true
+//         }
+//       }
+//     }
+//   });
+// };

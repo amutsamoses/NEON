@@ -8,7 +8,9 @@ import { eq } from "drizzle-orm";
 import db from "../drizzle/db";
 
 // GET ALL RESTAURANT OWNERS
-export const getRestaurantOwnerService = async (): Promise<TSRestaurantOwner[] | null> => {
+export const getRestaurantOwnerService = async (): Promise<
+  TSRestaurantOwner[] | null
+> => {
   const restaurantOwner = await db.query.RestaurantOwner.findMany();
   return restaurantOwner;
 };
@@ -36,7 +38,10 @@ export const updateRestaurantOwnerService = async (
   id: number,
   restaurantOwner: TIRestaurantOwner
 ) => {
-  await db.update(RestaurantOwner).set(restaurantOwner).where(eq(RestaurantOwner.id, id));
+  await db
+    .update(RestaurantOwner)
+    .set(restaurantOwner)
+    .where(eq(RestaurantOwner.id, id));
   return "Restaurant Owner updated successfully";
 };
 
@@ -44,4 +49,12 @@ export const updateRestaurantOwnerService = async (
 export const deleteRestaurantOwnerService = async (id: number) => {
   await db.delete(RestaurantOwner).where(eq(RestaurantOwner.id, id));
   return "Restaurant Owner deleted successfully";
+};
+
+export const restaurantOwnerRestaurantService = async () => {
+  return await db.query.RestaurantOwner.findMany({
+    with: {
+      restaurant: true,
+    },
+  });
 };

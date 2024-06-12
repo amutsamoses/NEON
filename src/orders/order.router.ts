@@ -1,7 +1,7 @@
 import { Hono } from "hono";
 import { Context } from "hono";
 import { zValidator } from "@hono/zod-validator";
-import { get } from "http";
+
 
 import {
   listOrders,
@@ -9,6 +9,7 @@ import {
   createOrder,
   updateOrder,
   deleteOrder,
+  orderWithAllDetail
 } from "./order.controller";
 
 import { orderSchema } from "../validators";
@@ -31,3 +32,5 @@ orderRouter.post(
 
 orderRouter.put("/orders/:id", updateOrder);
 orderRouter.delete("/orders/:id", deleteOrder);
+
+orderRouter.get("/orders_with_details", orderWithAllDetail);

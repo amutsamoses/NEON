@@ -7,6 +7,7 @@ import {
   createDriver,
   deleteDriver,
   updateDriver,
+  driverWithOrder,
 } from "./driver.controller";
 import { get } from "http";
 import { driverSchema } from "../validators";
@@ -26,3 +27,5 @@ driverRouter.post(
 );
 driverRouter.put("/drivers/:id", updateDriver);
 driverRouter.delete("/drivers/:id", deleteDriver);
+
+driverRouter.get("/drivers_with_orders", driverWithOrder);

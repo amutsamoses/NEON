@@ -1,6 +1,8 @@
 # API REST
 ###
 GET http://localhost:5000/api/ok
+
+
 ###
 GET http://localhost:5000/api/restaurants
 
@@ -18,28 +20,116 @@ Content-Type: application/json
 }
 
 ###
+PUT http://localhost:5000/api/restaurants/1
+Content-Type: application/json
+
+{
+    "name": "JAVA",
+    "description": "Fried Chicken",
+    "contact_phone": "1234567890",
+    "phone_verified": false,
+    "email": "",
+    "email_verified": false,
+    "confirmation_code": null
+}
+
+###
+DELETE http://localhost:5000/api/restaurants/1
+
+
+###
 GET http://localhost:5000/api/states
+
+###
+POST http://localhost:5000/api/states
+Content-Type: application/json
+
+{
+    "name": "Nairobi",
+    "country_id": 1
+}
+
+###
+PUT http://localhost:5000/api/states/1
+Content-Type: application/json
+
+{
+    "name": "Nairobi",
+    "country_id": 1
+}
+
+###
+DELETE http://localhost:5000/api/states/1
 
 
 ###
 GET http://localhost:5000/api/drivers
 
+###
+POST http://localhost:5000/api/drivers
+Content-Type: application/json
+
+{
+    "car_make": "Mercez Benz",
+    "car_model": "C200",
+    "car_year": 2019,
+    "user_id": 6,
+    "online": true,
+    "delivering": false
+}
+
+###
+PUT http://localhost:5000/api/drivers/6
+Content-Type: application/json
+
+{
+    "car_make": "Mercez Benz",
+    "car_model": "C200",
+    "car_year": 2019,
+    "user_id": 6,
+    "online": true,
+    "delivering": false
+}
+
+###
+DELETE http://localhost:5000/api/drivers/6
+
 
 ###
 GET http://localhost:5000/api/cities
 
+###
+POST http://localhost:5000/api/cities
+Content-Type: application/json
+
+{
+    "name": "Nairobi",
+    "state_id": 4
+}
 
 ###
-GET http://localhost:5000/api/users/3
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJKYW5lIFNtaXRoIiwicm9sZSI6InVzZXIiLCJleHAiOjE3MTgxMjQ2Mzh9.5ihfhaSqiMF8Ik4Fh131BUSdHJA14XtQlWCAjz0shxE
+PUT http://localhost:5000/api/cities/1
+Content-Type: application/json
 
+{
+    "name": "Nairobi",
+    "state_id": 4
+}
+
+###
+DELETE http://localhost:5000/api/cities/1
+
+
+
+###
+GET http://localhost:5000/api/users
 
 ###
 POST http://localhost:5000/api/users
 Content-Type: application/json
 
 { 
-    "name": "Eric Ngechu",
+    "name": "victor Peace",
     "contact_phone": "1234567890",
     "phone_verified": false,
     "email": "ericngechu@example.com",
@@ -47,6 +137,23 @@ Content-Type: application/json
     "confirmation_code": null,
     "password": "123456"
 }
+
+###
+PUT http://localhost:5000/api/users/12
+Content-Type: application/json
+
+{ 
+    "name": "victor Peace",
+    "contact_phone": "1234567890",
+    "phone_verified": false,
+    "email": "victorpeace@gmail.com",
+    "email_verified": false,
+    "confirmation_code": null,
+    "password": "12343456"
+}
+
+###
+DELETE http://localhost:5000/api/users/12
 
 ###
 DELETE http://localhost:5000/api/users/7
@@ -60,37 +167,263 @@ DELETE http://localhost:5000/api/users/9
 ###
 GET http://localhost:5000/api/addresses
 
+###
+POST http://localhost:5000/api/addresses
+Content-Type: application/json
+
+{
+    "street_address_1": "Nairobi",
+    "street_address_2": "Westlands",
+    "city_id": 1,
+    "zip_code": "00100",
+    "delivery_instructions": "Deliver to the gate",
+    "user_id": 1
+}
+
+###
+PUT http://localhost:5000/api/addresses/1
+Content-Type: application/json
+
+{
+    "street_address_1": "Nairobi",
+    "street_address_2": "Westlands",
+    "city_id": 1,
+    "zip_code": "00100",
+    "delivery_instructions": "Deliver to the gate",
+    "user_id": 1
+}
+
+###
+DELETE http://localhost:5000/api/addresses/1
 
 ###
 GET http://localhost:5000/api/orders
 
+###
+POST http://localhost:5000/api/orders
+Content-Type: application/json
+
+{
+   
+    "restaurant_id": 4,
+    "estimated_delivery_time": "null",
+    "actual_delivery_time": "null",
+    "delivery_address_id": 40,
+    "user_id": 5,
+    "driver_id": 10,
+    "price": 10.99,
+    "discount": "null",
+    "final_price": 9.99,
+    "comment": "null"
+}
+
+###
+PUT http://localhost:5000/api/orders/1
+Content-Type: application/json
+
+{
+   
+    "restaurant_id": 4,
+    "delivery_address_id": 40,
+    "user_id": 5,
+    "driver_id": 10,
+    "price": 10.99,
+    "final_price": 9.99
+}
+
+###
+DELETE http://localhost:5000/api/orders/1
 
 ###
 GET http://localhost:5000/api/comments
 
+###
+POST http://localhost:5000/api/comments
+Content-Type: application/json
+
+{
+    "order_id": 46,
+    "user_id": 5,
+    "comment_text": "Great food",
+    "is_complaint": false,
+    "is_praise": true
+}
+
+###
+PUT http://localhost:5000/api/comments/26
+Content-Type: application/json
+
+{
+    "order_id": 46,
+    "user_id": 5,
+    "comment_text": "Great meal",
+    "is_complaint": false,
+    "is_praise": true
+}
+
+###
+DELETE http://localhost:5000/api/comments/26
 
 ###
 GET http://localhost:5000/api/categories
 
+###
+POST http://localhost:5000/api/categories
+Content-Type: application/json
+
+{
+    "name": "Fast Food"
+}
+
+###
+PUT http://localhost:5000/api/categories/1
+Content-Type: application/json
+
+{
+    "name": "Fast Meals"
+}
+
+###
+DELETE http://localhost:5000/api/categories/1
 
 ###
 GET http://localhost:5000/api/menuItems
 
+###
+POST http://localhost:5000/api/menuItems
+Content-Type: application/json
+
+{
+    "name": "Chicken",
+    "restaurant_id": 4,
+     "category_id": 4,
+    "description": "Fried Chicken",
+    "ingredients": "Chicken, Salt, Pepper",
+    "price": 11.99,
+    "active": true
+   
+}
+
+###
+PUT http://localhost:5000/api/menuItems/1
+Content-Type: application/json
+
+{
+    "name": "Chicken",
+    "restaurant_id": 4,
+    "category_id": 4,
+    "description": "Fried Chicken",
+    "ingredients": "Chicken, Salt, Pepper",
+    "price": 11.99,
+    "active": true
+}
+
+###
+DELETE http://localhost:5000/api/menuItems/1
 
 ###
 GET http://localhost:5000/api/restaurantOwners
+
+###
+POST http://localhost:5000/api/restaurantOwners
+Content-Type: application/json
+
+{
+    "owner_id": 6,
+    "restaurant_id": 5
+}
+
+###
+PUT http://localhost:5000/api/restaurantOwners/1
+Content-Type: application/json
+
+{
+    "owner_id": 6,
+    "restaurant_id": 5
+}
+
+###
+DELETE http://localhost:5000/api/restaurantOwners/1
 
 
 ###
 GET http://localhost:5000/api/orderStatuses
 
+###
+POST http://localhost:5000/api/orderStatuses
+Content-Type: application/json
+
+{
+    "order_id": 46,
+    "status_catalog_id": 1
+}
+
+###
+PUT http://localhost:5000/api/orderStatuses/1
+Content-Type: application/json
+
+{
+    "order_id": 46,
+    "status_catalog_id": 1
+}
+
+###
+DELETE http://localhost:5000/api/orderStatuses/1
+
 
 ###
 GEt http://localhost:5000/api/status_catalogs
 
+###
+POST http://localhost:5000/api/status_catalogs
+Content-Type: application/json
+
+{
+    "name": "Pending"
+}
+
+###
+PUT http://localhost:5000/api/status_catalogs/1
+Content-Type: application/json
+
+{
+    "name": "Pending"
+}
+
+###
+DELETE http://localhost:5000/api/status_catalogs/1
 
 ###
 GET http://localhost:5000/api/order_menu_items
+
+###
+POST http://localhost:5000/api/order_menu_items
+Content-Type: application/json
+
+{
+    "order_id": 43,
+    "menu_item_id": 1,
+    "quantity": 4,
+    "item_price": 17.99,
+    "price": 14.99,
+    "comment": "null"
+}
+
+###
+PUT http://localhost:5000/api/order_menu_items/6
+Content-Type: application/json
+
+{
+    "order_id": 43,
+    "menu_item_id": 1,
+    "quantity": 4,
+    "item_price": 17.99,
+    "price": 14.99,
+    "comment": "null"
+}
+
+###
+DELETE http://localhost:5000/api/order_menu_items/6
 
 
 ###
@@ -98,16 +431,45 @@ GET http://localhost:5000/api/states_with_cities
 
 
 ###
+GET http://localhost:5000/api/restaurants_with_menuItems_and_orders
+
+
+###
+GET http://localhost:5000/api/orders_with_details
+
+
+###
+GET http://localhost:5000/api/drivers_with_orders
+
+
+###
+GET http://localhost:5000/api/users_with_orders
+
+
+
+###Authenticating Users and Authorization
 POST http://localhost:5000/api/auth/register
 Content-Type: application/json
 
     {
-        "user_id": 6,
-        "username": "Maximum Joe",
-        "password": "pass"
-    
+        "user_id": 1,
+        "username": "John Doe",
+        "password": "pass",
+        "role": "user"    
     }
 
+###
+POST http://localhost:5000/api/auth/login
+Content-Type: application/json
+    
+        {
+            "username": "John Doe",
+            "password": "pass"
+        }
+
+###
+GET http://localhost:5000/api/users/1
+Authorization:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJKb2huIERvZSIsInJvbGUiOiJ1c2VyIiwiZXhwIjoxNzE4MTY5MjgzfQ.Rz1zZr34QUt4Kb_u3jluIjpsdPGFvZ83BlR8JmNfhmY
 
 ###
 POST http://localhost:5000/api/auth/register
@@ -130,6 +492,12 @@ Content-Type: application/json
         }
 
 ###
+GET http://localhost:5000/api/users/3
+Authorization:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJKYW5lIFNtaXRoIiwicm9sZSI6InVzZXIiLCJleHAiOjE3MTgxNjkxOTV9.HMCQWlmiUvBzK5vE4ML8VIusTR0T0NBrzHfKTIXVihA
+
+
+
+### Giving Admin Role
 POST http://localhost:5000/api/auth/register
 Content-Type: application/json
 
@@ -152,6 +520,6 @@ Content-Type: application/json
         }
         
         
-###
-GET http://localhost:5000/api/users/10
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJFcmljIE5nZWNodSIsInJvbGUiOiJhZG1pbiIsImV4cCI6MTcxODE2NzgwN30._IlgV6o_68V0NWb1TdDS3pBw0MLgBq2gRlAIXf-zJJk
+### Admin User 
+GET http://localhost:5000/api/users
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJFcmljIE5nZWNodSIsInJvbGUiOiJhZG1pbiIsImV4cCI6MTcxODE2ODgyNn0.FnK0syCdHgPtl35eL9MoXt5SvhrZz5Zb5QVgHajRyBA

@@ -8,6 +8,7 @@ import {
   createRestaurant,
   updateRestaurant,
   deleteRestaurant,
+  restaurantWithMenuItemsAndOrder,
 } from "./restaurant.controller";
 
 import { restaurantSchema } from "../validators";
@@ -30,3 +31,9 @@ restaurantRouter.post(
 
 restaurantRouter.put("/restaurants/:id", updateRestaurant);
 restaurantRouter.delete("/restaurants/:id", deleteRestaurant);
+
+
+restaurantRouter.get(
+  "/restaurants_with_menuItems_and_orders",
+  restaurantWithMenuItemsAndOrder
+);

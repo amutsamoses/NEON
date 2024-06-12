@@ -6,6 +6,7 @@ import {
   createRestaurantService,
   updateRestaurantService,
   deleteRestaurantService,
+  restaurantWithMenuItemsAndOrderService,
 } from "./restaurant.service";
 import { Restaurant } from "../drizzle/schema";
 
@@ -70,19 +71,29 @@ export const updateRestaurant = async (c: Context) => {
 //delete user
 export const deleteRestaurant = async (c: Context) => {
   const id = Number(c.req.param("id"));
-  if (isNaN(id)) 
-  return c.text("invalid ID!", 400);
+  if (isNaN(id)) return c.text("invalid ID!", 400);
 
   try {
     //search for the user
     const restaurant = await getSingleRestaurantService(id);
-    if (restaurant == undefined) 
-    return c.text("user not found!👽", 404);
+    if (restaurant == undefined) return c.text("user not found!👽", 404);
     //delete the user
     const res = await deleteRestaurantService(id);
     if (!res) return c.text("user not deleted!👽", 404);
 
     return c.json({ msg: res }, 201);
+  } catch (error: any) {
+    return c.json({ error: error?.message }, 400);
+  }
+};
+
+export const restaurantWithMenuItemsAndOrder = async (c: Context) => {
+  try {
+    const data = await restaurantWithMenuItemsAndOrderService();
+    if (data == null) {
+      return c.text("No data found", 404);
+    }
+    return c.json(data, 200);
   } catch (error: any) {
     return c.json({ error: error?.message }, 400);
   }

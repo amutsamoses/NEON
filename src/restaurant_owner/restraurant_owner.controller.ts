@@ -6,6 +6,7 @@ import {
   createRestaurantOwnerService,
   updateRestaurantOwnerService,
   deleteRestaurantOwnerService,
+  restaurantOwnerRestaurantService,
 } from "./restraurant_owner.service";
 
 export const listRestaurantOwners = async (c: Context) => {
@@ -91,6 +92,18 @@ export const deleteRestaurantOwner = async (c: Context) => {
     const result = await deleteRestaurantOwnerService(id);
 
     return c.json({ message: result }, 200);
+  } catch (error: any) {
+    return c.json({ error: error?.message }, 500);
+  }
+};
+
+export const restaurantOwnerRestaurant = async (c: Context) => {
+  try {
+    const restaurantOwner = await restaurantOwnerRestaurantService();
+    if (restaurantOwner == null) {
+      return c.text("No restaurantOwner found", 404);
+    }
+    return c.json(restaurantOwner, 200);
   } catch (error: any) {
     return c.json({ error: error?.message }, 500);
   }

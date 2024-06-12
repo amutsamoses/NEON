@@ -34,3 +34,12 @@ export const deleteUserService = async (id: number) => {
   await db.delete(Users).where(eq(Users.id, id));
   return "user deleted successfully!😑";
 };
+
+//get user with order
+export const userWithOrderService = async () => {
+  return await db.query.Users.findFirst({
+    with: {
+      orders: true,
+    },
+  });
+};

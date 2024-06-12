@@ -10,6 +10,7 @@ import {
   createRestaurantOwner,
   updateRestaurantOwner,
   deleteRestaurantOwner,
+  restaurantOwnerRestaurant,
 } from "./restraurant_owner.controller";
 
 export const restaurantOwnerRouter = new Hono();
@@ -40,3 +41,8 @@ restaurantOwnerRouter.put(
 );
 
 restaurantOwnerRouter.delete("/restaurantOwners/:id", deleteRestaurantOwner);
+
+restaurantOwnerRouter.get(
+  "/restaurantOwners_with_restaurants",
+  restaurantOwnerRestaurant
+);
