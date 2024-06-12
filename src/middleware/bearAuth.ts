@@ -25,12 +25,14 @@ export const authMiddleware = async (
   try {
     // get the token from the request header
     const token = c.req.header("Authorization");
+
     // get the secret key from the env file
     let secret = process.env.JWT_SECRET as string;
     // check if the token is not present
     if (!token) {
       return c.json({ error: "token not found" }, 401);
     }
+
     // verify the token
     const decoded = await verifyToken(token, secret);
     // check if the token is not verified
@@ -41,9 +43,8 @@ export const authMiddleware = async (
     if (decoded.role !== requiredRole) {
       return c.json({ error: "unauthorized access" }, 401);
     }
-    // // pass the token and user object to the context
-    // c.req.token = token;
-    // c.req.user = decoded;
+
+    //pass the token and user object to the context
     // call the next middleware
     return next();
   } catch (error: any) {

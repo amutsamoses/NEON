@@ -11,20 +11,11 @@ export default defineConfig({
   //define where your migration will go
   out: "./src/drizzle/migrations",
 
+  //define where your seeds will go
   dbCredentials: {
+    // host: "localhost",
     url: process.env.DATABASE_URL as string,
   },
-  verbose: true,
+  verbose: true, // or false
   strict: true,
 });
-
-// module.exports = {
-//   client: "postgres", // or 'postgres'
-//   connection: {
-//     host: "localhost",
-//     user: "postgres",
-//     password: "1234567890",
-//     database: "socialmedia",
-//     port: 5432,
-//   },
-// };

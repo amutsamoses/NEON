@@ -1,7 +1,6 @@
 import { Hono } from "hono";
 import { zValidator } from "@hono/zod-validator";
 import { loginUserSchema, registerUserSchema } from "../validators";
-
 import { loginUser, registerUser } from "./auth.controller";
 // import { register } from "module";
 

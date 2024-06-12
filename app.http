@@ -30,7 +30,8 @@ GET http://localhost:5000/api/cities
 
 
 ###
-GET http://localhost:5000/api/users
+GET http://localhost:5000/api/users/3
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJKYW5lIFNtaXRoIiwicm9sZSI6InVzZXIiLCJleHAiOjE3MTgxMjQ2Mzh9.5ihfhaSqiMF8Ik4Fh131BUSdHJA14XtQlWCAjz0shxE
 
 
 ###
@@ -113,20 +114,44 @@ POST http://localhost:5000/api/auth/register
 Content-Type: application/json
 
     {
-        "user_id": 5,
-        "username": "Bob Brown",
+        "user_id": 3,
+        "username": "Jane Smith",
         "password": "pass",
-        "role": "admin"
+        "role": "user"
     
     }
 ###
 POST http://localhost:5000/api/auth/login
 Content-Type: application/json
     
-
         {
-            "username": "Bob Brown",
+            "username": "Jane Smith",
             "password": "pass"
-          
-        
         }
+
+###
+POST http://localhost:5000/api/auth/register
+Content-Type: application/json
+
+    {
+        "user_id": 10,
+        "username": "Eric Ngechu",
+        "password": "pass",
+        "role": "admin"
+    
+    }
+
+
+###
+POST http://localhost:5000/api/auth/login
+Content-Type: application/json
+    
+        {
+            "username": "Eric Ngechu",
+            "password": "pass"
+        }
+        
+        
+###
+GET http://localhost:5000/api/users/10
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJFcmljIE5nZWNodSIsInJvbGUiOiJhZG1pbiIsImV4cCI6MTcxODE2NzgwN30._IlgV6o_68V0NWb1TdDS3pBw0MLgBq2gRlAIXf-zJJk
