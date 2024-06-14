@@ -32,7 +32,7 @@ addressRouter.post(
       return c.json(results.error, 400);
     }
   }),
-  adminRoleAuth,
+  bothRoleAuth,
   createAddress
 );
 
@@ -43,12 +43,12 @@ addressRouter.put(
       return c.json(results.error, 400);
     }
   }),
-  adminRoleAuth,
+  bothRoleAuth,
   updateAddress
 );
 
-addressRouter.delete("/addresses/:id", adminRoleAuth, deleteAddress);
+addressRouter.delete("/addresses/:id", bothRoleAuth, deleteAddress);
 
 addressRouter.get("/address_with_user_city_orders", addressWithUser);
 
-addressRouter.get("/limit_address", limitAddress);
+addressRouter.get("/limit_address", adminRoleAuth, limitAddress);
