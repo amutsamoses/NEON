@@ -61,7 +61,7 @@ app.use(trimTrailingSlash()); // removes trailing slashes from the url
 app.get("/ok", (c) => {
   return c.html(
     html`
-      <h1>Welcome to Restaurant Mng API</h1>
+      <h1>Welcome to Kephar's Restaurant Mng API</h1>
       <p>API is running successfully</p>
       <p>API is running on port ${process.env.PORT}</p>
       <ul>
