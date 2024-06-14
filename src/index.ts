@@ -61,18 +61,55 @@ app.use(trimTrailingSlash()); // removes trailing slashes from the url
 app.get("/ok", (c) => {
   return c.html(
     html`
-      <h1>Welcome to Kephar's Restaurant Mng API</h1>
-      <p>API is running successfully</p>
-      <p>API is running on port ${process.env.PORT}</p>
-      <ul>
-        <li><b>message: "Welcome to Restaurant Mng API😀"</b></li>
-        <br />
-        <li><b>version: "1.0.0",</b></li>
-        <br />
-        <li>
-          <b>docs:</b> "Please visit the documentation for more information",
-        </li>
-      </ul>
+      <head>
+        <title>Restaurant Management System</title>
+
+        <style>
+          body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: #333;
+          }
+          .container {
+            text-align: center;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            max-width: 400px;
+            width: 90%;
+          }
+          h1 {
+            color: #343a40;
+            margin-bottom: 10px;
+          }
+          p {
+            font-size: 1.1em;
+            margin-bottom: 20px;
+          }
+          .footer {
+            font-size: 0.9em;
+            color: #6c757d;
+          }
+        </style>
+      </head>
+      <body>
+        <div class="container">
+          <h1>Welcome to Kephar's Eatery 🍽️</h1>
+          <p>
+            Hello! I'm Kephar Moses, and this is my restaurant API. Discover the
+            finest cuisines, explore our menu, and make reservations
+            effortlessly. 🍕🍔🍜
+          </p>
+          <div class="footer">&copy; 2024 Kephar Moses</div>
+        </div>
+      </body>
     `
   );
 });
