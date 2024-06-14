@@ -9,6 +9,7 @@ import {
   createCategory,
   updateCategory,
   deleteCategory,
+  categoryMenuItem,
 } from "./category.controller";
 
 export const categoryRouter = new Hono();
@@ -39,3 +40,5 @@ categoryRouter.put(
 );
 
 categoryRouter.delete("/categories/:id", deleteCategory);
+
+categoryRouter.get("/category_menu_items", categoryMenuItem);

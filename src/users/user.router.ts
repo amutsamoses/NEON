@@ -7,12 +7,14 @@ import {
   updateUser,
   deleteUser,
   userWithOrder,
+  userWithNameiLike,
 } from "./user.controller";
 import { userSchema } from "../validators";
 import {
   adminRoleAuth,
   authMiddleware,
   userRoleAuth,
+  bothRoleAuth,
 } from "../middleware/bearAuth";
 
 export const userRouter = new Hono();
@@ -36,7 +38,7 @@ interface TUsers {
 }
 
 userRouter.get("/users", adminRoleAuth, listUsers);
-userRouter.get("/users/:id", userRoleAuth, getSingleUser);
+userRouter.get("/users/:id", bothRoleAuth, getSingleUser);
 userRouter.post(
   "/users",
   zValidator("json", userSchema, (results, c) => {
@@ -44,9 +46,12 @@ userRouter.post(
       return c.json(results.error, 400);
     }
   }),
+  adminRoleAuth,
   createUser
 );
-userRouter.put("/users/:id", updateUser);
-userRouter.delete("/users/:id", deleteUser);
+userRouter.put("/users/:id", adminRoleAuth, updateUser);
+userRouter.delete("/users/:id", adminRoleAuth, deleteUser);
 
 userRouter.get("/users_with_orders", userWithOrder);
+
+userRouter.get("/users_with_name", userWithNameiLike);

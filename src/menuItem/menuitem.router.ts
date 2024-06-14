@@ -9,6 +9,7 @@ import {
   createMenuItem,
   updateMenuItem,
   deleteMenuItem,
+  menuItemWithRestaurantCategoryOrderMenuItem,
 } from "./menuitem.controller";
 
 export const menuItemRouter = new Hono();
@@ -39,3 +40,8 @@ menuItemRouter.put(
 );
 
 menuItemRouter.delete("/menuItems/:id", deleteMenuItem);
+
+menuItemRouter.get(
+  "/menuitem_with_restaurant_category_order_menu_item",
+  menuItemWithRestaurantCategoryOrderMenuItem
+);

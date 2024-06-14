@@ -34,7 +34,18 @@ export const updateCategoryService = async (
 };
 
 // DELETE CATEGORY
-export const deleteCategoryService = async (id: number) => {
+export const deleteCategoryService = async (
+  id: number
+): Promise<string | null> => {
   await db.delete(Category).where(eq(Category.id, id));
   return "Category deleted successfully";
+};
+
+//get all categories with menu items
+export const categoryMenuItemService = async () => {
+  return await db.query.Category.findMany({
+    with: {
+      menuItems: true,
+    },
+  });
 };

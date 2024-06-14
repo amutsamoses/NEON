@@ -6,6 +6,7 @@ import {
   createMenuItemService,
   updateMenuItemService,
   deleteMenuItemService,
+  menuItemWithRestaurantCategoryOrderMenuItemService,
 } from "./menuitem.service";
 import { undefined } from "zod";
 
@@ -84,6 +85,21 @@ export const deleteMenuItem = async (c: Context) => {
     const result = await deleteMenuItemService(id);
 
     return c.json({ message: result }, 200);
+  } catch (error: any) {
+    return c.json({ error: error?.message }, 500);
+  }
+};
+
+//get menuitem with restaurant, category and order_menu_item
+export const menuItemWithRestaurantCategoryOrderMenuItem = async (
+  c: Context
+) => {
+  try {
+    const menuItem = await menuItemWithRestaurantCategoryOrderMenuItemService();
+    if (menuItem == null || menuItem.length == 0) {
+      return c.text("No menuItem found", 404);
+    }
+    return c.json(menuItem, 200);
   } catch (error: any) {
     return c.json({ error: error?.message }, 500);
   }

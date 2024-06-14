@@ -2,7 +2,6 @@ import { eq } from "drizzle-orm";
 import db from "../drizzle/db";
 import { TSMenuItem, TIMenuItem, MenuItem } from "../drizzle/schema";
 
-
 // GET ALL MENUITEMS
 export const getMenuItemService = async (): Promise<TSMenuItem[] | null> => {
   const menuItem = await db.query.MenuItem.findMany();
@@ -26,7 +25,10 @@ export const createMenuItemService = async (menuItem: TIMenuItem) => {
 };
 
 //  UPDATE MENUITEM
-export const updateMenuItemService = async (id: number, menuItem: TIMenuItem) => {
+export const updateMenuItemService = async (
+  id: number,
+  menuItem: TIMenuItem
+) => {
   await db.update(MenuItem).set(menuItem).where(eq(MenuItem.id, id));
   return "MenuItem updated successfully";
 };
@@ -35,4 +37,15 @@ export const updateMenuItemService = async (id: number, menuItem: TIMenuItem) =>
 export const deleteMenuItemService = async (id: number) => {
   await db.delete(MenuItem).where(eq(MenuItem.id, id));
   return "MenuItem deleted successfully";
+};
+
+//get menuitem with restaurant, category and order_menu_item
+export const menuItemWithRestaurantCategoryOrderMenuItemService = async () => {
+  return await db.query.MenuItem.findMany({
+    with: {
+      restaurant: true,
+      category: true,
+      orderMenuItems: true,
+    },
+  });
 };

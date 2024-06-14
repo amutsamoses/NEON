@@ -140,8 +140,6 @@ export const Orders = pgTable("orders", {
   restaurant_id: integer("restaurant_id").references(() => Restaurant.id, {
     onDelete: "cascade",
   }),
-  estimated_delivery_time: timestamp("estimated_delivery_time"),
-  actual_delivery_time: timestamp("actual_delivery_time"),
   delivery_address_id: integer("delivery_address_id").references(
     () => Address.id,
     { onDelete: "cascade" }
@@ -152,9 +150,9 @@ export const Orders = pgTable("orders", {
   driver_id: integer("driver_id").references(() => Driver.id, {
     onDelete: "cascade",
   }),
-  price: decimal("price").notNull(),
-  discount: decimal("discount"),
-  final_price: decimal("final_price").notNull(),
+  price: integer("price").notNull(),
+  discount: integer("discount"),
+  final_price: integer("final_price").notNull(),
   comment: text("comment"),
   created_at: timestamp("created_at").defaultNow(),
   updated_at: timestamp("updated_at").defaultNow(),
@@ -200,7 +198,7 @@ export const RestaurantOwner = pgTable("restaurant_owner", {
 
 ////10th june creating new tables for auth tokens
 
-export const roleEnum = pgEnum("role", ["admin", "user"]);
+export const roleEnum = pgEnum("role", ["admin", "user", "both"]);
 
 export const authTokens = pgTable("auth_tokens", {
   id: serial("id").primaryKey(),
@@ -380,13 +378,22 @@ export const statusCatalogRelations = relations(StatusCatalog, ({ many }) => ({
   orderStatuses: many(OrderStatus),
 }));
 
-export const userRelations = relations(Users, ({ many }) => ({
+export const userRelations = relations(Users, ({ one, many }) => ({
   addresses: many(Address),
-  comments: many(Comment),
+  comments: one(Comment),
   drivers: many(Driver),
   orders: many(Orders),
   restaurantOwners: many(RestaurantOwner),
 }));
+
+// relationship to fetch city with its states and addresses
+// export const cityWithStateRelations = relations(City, ({ one, many }) => ({
+//   state: one(State, {
+//     fields: [City.state_id],
+//     references: [State.id],
+//   }),
+//   addresses: many(Address),
+// }));
 
 // Types
 

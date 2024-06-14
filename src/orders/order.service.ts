@@ -2,8 +2,6 @@ import { eq } from "drizzle-orm";
 
 import db from "../drizzle/db";
 
-import { Context } from "hono";
-
 import { TSOrder, TIOrder, Orders } from "../drizzle/schema";
 
 export const getOrderService = async (): Promise<TSOrder[]> => {
@@ -55,6 +53,7 @@ export const orderWithAllDetailService = async () => {
       },
       deliveryAddress: true,
       driver: true,
+      comments: true,
     },
   });
 };

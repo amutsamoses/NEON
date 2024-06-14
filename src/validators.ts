@@ -39,13 +39,11 @@ export const citySchema = z.object({
 
 export const orderSchema = z.object({
   restaurant_id: z.number(),
-  estimated_delivery_time: z.string(),
-  actual_delivery_time: z.string(),
   delivery_address_id: z.number(),
   user_id: z.number(),
   driver_id: z.number(),
   price: z.number(),
-  discount: z.string(),
+  discount: z.number(),
   final_price: z.number(),
   comment: z.string(),
 });

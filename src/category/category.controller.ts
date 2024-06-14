@@ -6,6 +6,7 @@ import {
   createCategoryService,
   updateCategoryService,
   deleteCategoryService,
+  categoryMenuItemService,
 } from "./category.service";
 
 import { undefined } from "zod";
@@ -68,7 +69,6 @@ export const updateCategory = async (c: Context) => {
     const result = await updateCategoryService(id, category);
 
     return c.json({ message: result }, 200);
-
   } catch (error: any) {
     return c.json({ error: error?.message }, 500);
   }
@@ -91,5 +91,17 @@ export const deleteCategory = async (c: Context) => {
     return c.json({ message: result }, 200);
   } catch (error: any) {
     return c.json({ error: error?.message }, 500);
+  }
+};
+
+export const categoryMenuItem = async (c: Context) => {
+  try {
+    const category = await categoryMenuItemService();
+    if (category == null || category.length == 0) {
+      return c.text("No category found with menu items", 404);
+    }
+    return c.json(category, 200);
+  } catch (error: any) {
+    return c.json({ error: error?.message }, 400);
   }
 };

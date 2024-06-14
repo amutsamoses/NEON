@@ -9,14 +9,21 @@ import {
   createAddress,
   updateAddress,
   deleteAddress,
+  addressWithUser,
+  limitAddress,
 } from "./address.controller";
+import {
+  adminRoleAuth,
+  userRoleAuth,
+  bothRoleAuth,
+} from "../middleware/bearAuth";
 
 export const addressRouter = new Hono();
 
 //get all addresses
-addressRouter.get("/addresses", listAddresses);
+addressRouter.get("/addresses", adminRoleAuth, listAddresses);
 
-addressRouter.get("/addresses/:id", getSingleAddress);
+addressRouter.get("/addresses/:id", bothRoleAuth, getSingleAddress);
 
 addressRouter.post(
   "/addresses",
@@ -25,6 +32,7 @@ addressRouter.post(
       return c.json(results.error, 400);
     }
   }),
+  adminRoleAuth,
   createAddress
 );
 
@@ -35,7 +43,12 @@ addressRouter.put(
       return c.json(results.error, 400);
     }
   }),
+  adminRoleAuth,
   updateAddress
 );
 
-addressRouter.delete("/addresses/:id", updateAddress);
+addressRouter.delete("/addresses/:id", adminRoleAuth, deleteAddress);
+
+addressRouter.get("/address_with_user_city_orders", addressWithUser);
+
+addressRouter.get("/limit_address", limitAddress);

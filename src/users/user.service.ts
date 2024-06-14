@@ -1,4 +1,4 @@
-import { eq } from "drizzle-orm";
+import { eq, ilike } from "drizzle-orm";
 import db from "../drizzle/db";
 import { TIUsers, TSUsers, Users } from "../drizzle/schema";
 
@@ -40,6 +40,18 @@ export const userWithOrderService = async () => {
   return await db.query.Users.findFirst({
     with: {
       orders: true,
+      addresses: true,
+      drivers: true,
+      comments: true,
     },
   });
+};
+
+export const userWithNameiLikeService = async (
+  name: string
+): Promise<string | TSUsers[]> => {
+  return await db
+    .select()
+    .from(Users)
+    .where(ilike(Users.name, `%${name}%`));
 };

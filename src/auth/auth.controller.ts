@@ -26,11 +26,11 @@ export const registerUser = async (c: Context) => {
 export const loginUser = async (c: Context) => {
   try {
     const user = await c.req.json();
-    console.log('User input:', user);
+    // console.log("User input:", user);
 
     // check if the user exist
     const userExist = await userLoginService(user);
-    console.log('User exist:', userExist);
+    // console.log("User exist:", userExist);
 
     // check if the user exist in the database or not
     if (userExist === null) {
@@ -42,30 +42,26 @@ export const loginUser = async (c: Context) => {
       user.password as string,
       userExist?.password as string
     );
-    console.log('Password match:', userMatch);
+    // console.log("Password match:", userMatch);
 
     if (!userMatch) {
-      return c.json({ error: "password does not match" }, 400);
+      return c.json({ error: "password does not match" }, 401);
     } else {
       // create the payload for the jwt token
       const payload = {
         sub: userExist?.username,
         role: userExist?.role,
-        exp: Math.floor(Date.now() / 1000) + 60 * 180, // 3 hours expiration
+        exp: Math.floor(Date.now() / 1000) + 60 * 180, // 3 hours expiration time for the token
       };
 
-      const secret = process.env.JWT_SECRET as string; // secret key for jwt
+      let secret = process.env.JWT_SECRET as string; // secret key for jwt
       const token = await sign(payload, secret); // sign the token with the payload and secret key
-      const userDetails = userExist?.user; // get the user from the userExist object
-      const role = userExist?.role; // get the role from the userExist object
-
-      console.log('Token:', token);
-      console.log('User details:', userDetails);
+      let userDetails = userExist?.user; // get the user from the userExist object
+      let role = userExist?.role; // get the role from the userExist object
 
       return c.json({ token, user: { role, ...userDetails } }, 200); // return the token and user object
     }
   } catch (error: any) {
-    console.error('Error during login:', error);
     return c.json({ error: error?.message }, 400);
   }
 };

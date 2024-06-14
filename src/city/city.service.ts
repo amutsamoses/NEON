@@ -33,3 +33,14 @@ export const deleteCityService = async (id: number) => {
   await db.delete(City).where(eq(City.id, id));
   return "user deleted successfully!😑";
 };
+
+//get city with state and address
+export const cityWithStateAndAddressService = async () => {
+  return await db.query.City.findFirst({
+    with: {
+      state: true,
+      address: true,
+      // restaurant: true,
+    },
+  });
+};

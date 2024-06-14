@@ -165,7 +165,7 @@ DELETE http://localhost:5000/api/users/8
 DELETE http://localhost:5000/api/users/9
 
 ###
-GET http://localhost:5000/api/addresses
+GET http://localhost:5000/api/addresses/38
 
 ###
 POST http://localhost:5000/api/addresses
@@ -204,18 +204,20 @@ POST http://localhost:5000/api/orders
 Content-Type: application/json
 
 {
-   
+
     "restaurant_id": 4,
-    "estimated_delivery_time": "null",
-    "actual_delivery_time": "null",
     "delivery_address_id": 40,
     "user_id": 5,
     "driver_id": 10,
     "price": 10.99,
-    "discount": "null",
+    "discount": 1.00,
     "final_price": 9.99,
     "comment": "null"
 }
+
+
+
+
 
 ###
 PUT http://localhost:5000/api/orders/1
@@ -426,6 +428,8 @@ Content-Type: application/json
 DELETE http://localhost:5000/api/order_menu_items/6
 
 
+
+/////////////////////////////////////////Queries with objects/////////////////////////////////////////
 ###
 GET http://localhost:5000/api/states_with_cities
 
@@ -437,6 +441,9 @@ GET http://localhost:5000/api/restaurants_with_menuItems_and_orders
 ###
 GET http://localhost:5000/api/orders_with_details
 
+###
+GET http://localhost:5000/api/address_with_user_city_orders
+
 
 ###
 GET http://localhost:5000/api/drivers_with_orders
@@ -445,9 +452,29 @@ GET http://localhost:5000/api/drivers_with_orders
 ###
 GET http://localhost:5000/api/users_with_orders
 
+###
+GET http://localhost:5000/api/category_menu_items
+
+###
+GET http://localhost:5000/api/comment_with_user_order
+
+###
+GET http://localhost:5000/api/menuitem_with_restaurant_category_order_menu_item
 
 
-###Authenticating Users and Authorization
+###
+GET http://localhost:5000/api/order_status_with_order_status_catalog
+
+###
+GET http://localhost:5000/api/users_with_name?name=Bob
+
+###
+GET http://localhost:5000/api/limit_address?limit=3
+
+
+
+/////////////////////////////////////////Authentication and Authorization/////////////////////////////////////////
+###
 POST http://localhost:5000/api/auth/register
 Content-Type: application/json
 
@@ -469,8 +496,7 @@ Content-Type: application/json
 
 ###
 GET http://localhost:5000/api/users/1
-Authorization:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJKb2huIERvZSIsInJvbGUiOiJ1c2VyIiwiZXhwIjoxNzE4MTY5MjgzfQ.Rz1zZr34QUt4Kb_u3jluIjpsdPGFvZ83BlR8JmNfhmY
-
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJKb2huIERvZSIsInJvbGUiOiJ1c2VyIiwiZXhwIjoxNzE4Mjg2OTY5fQ.1SKI3c6xOCBfBSmSOSi_Yrjp_AjH3I6tx3zsTw9s80M
 ###
 POST http://localhost:5000/api/auth/register
 Content-Type: application/json
@@ -493,11 +519,141 @@ Content-Type: application/json
 
 ###
 GET http://localhost:5000/api/users/3
-Authorization:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJKYW5lIFNtaXRoIiwicm9sZSI6InVzZXIiLCJleHAiOjE3MTgxNjkxOTV9.HMCQWlmiUvBzK5vE4ML8VIusTR0T0NBrzHfKTIXVihA
+Authorization:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJKYW5lIFNtaXRoIiwicm9sZSI6InVzZXIiLCJleHAiOjE3MTgyMDY4NDF9.KvhxroVqqM8BijitsyJ_ip8PO24dIhG0JkY63tCfWik
+
+###
+POST http://localhost:5000/api/auth/register
+Content-Type: application/json
+
+    {
+        "user_id": 5,
+        "username": "Bob Brown",
+        "password": "password",
+        "role": "user"
+    
+    }
+
+###
+POST http://localhost:5000/api/auth/login
+Content-Type: application/json
+    
+        {
+            "username": "Bob Brown",
+            "password": "password"
+        }
+
+###
+GET http://localhost:5000/api/users/5
+Authorization:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJCb2IgQnJvd24iLCJyb2xlIjoidXNlciIsImV4cCI6MTcxODIwNzE4Nn0.fEda47wDYA91fjKbmQQczT0oIc3Rs_WgfnRjhgJNu1c
+
+###
+POST http://localhost:5000/api/auth/register
+Content-Type: application/json
+
+    {
+        "user_id": 4,
+        "username": "Alice Johnson",
+        "password": "password123",
+        "role": "user"
+    
+    }
+
+###
+POST http://localhost:5000/api/auth/login
+Content-Type: application/json
+    
+        {
+            "username": "Alice Johnson",
+            "password": "password123"
+        }
+
+###
+GET http://localhost:5000/api/users/4
+Authorization:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJBbGljZSBKb2huc29uIiwicm9sZSI6InVzZXIiLCJleHAiOjE3MTgyMDczMjR9.5OpUdHKgdHx-80soVtrPJteadWY0qSAt8O1FG3wDLqM
+
+
+###
+POST http://localhost:5000/api/auth/register
+Content-Type: application/json
+
+    {
+        "user_id": 6,
+        "username": "Charlie Davis",
+        "password": "password",
+        "role": "user"
+    
+    }
+
+###
+POST http://localhost:5000/api/auth/login
+Content-Type: application/json
+    
+        {
+            "username": "Charlie Davis",
+            "password": "password"
+        }
+
+###
+GET http://localhost:5000/api/users/6
+Authorization:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJDaGFybGllIERhdmlzIiwicm9sZSI6InVzZXIiLCJleHAiOjE3MTgyMDc0NTd9.ZroYzoDQkgibEk8vYjVbMIIEpEEPZn66RPVCdCqZyxg
+
+###
+POST http://localhost:5000/api/auth/register
+Content-Type: application/json
+
+    {
+        "user_id": 12,
+        "username": "victor Peace",
+        "password": "password1234",
+        "role": "user"
+    
+    }
+
+###
+POST http://localhost:5000/api/auth/login
+Content-Type: application/json
+    
+        {
+            "username": "victor Peace",
+            "password": "password1234"
+        }
+
+
+###
+GET http://localhost:5000/api/users/12
+Authorization:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ2aWN0b3IgUGVhY2UiLCJyb2xlIjoidXNlciIsImV4cCI6MTcxODI4OTcxMX0.C5pauqJ_TU3jU6G09-ipZxOnD4swv0pyWHBlBLSlvEc
+
+
+###
+POST http://localhost:5000/api/auth/register
+Content-Type: application/json
+
+    {
+        "user_id": 14,
+        "username": "Optimus Prime",
+        "password": "optimusprime",
+        "role": "user"
+    
+    }
+
+
+###
+POST http://localhost:5000/api/auth/login
+Content-Type: application/json
+    
+        {
+            "username": "Optimus Prime",
+            "password": "optimusprime"
+        }
+
+###
+GET http://localhost:5000/api/users/16
+Authorization:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWOiJPcHRpbXVzIFByaW1lIiwicm9sZSI6InVzZXIiLCJleHAiOjE3MTgyODk4MzB9.cJck3gu_qz2lk6ZV2D8oAqlOKbopyMw3ke-csosQvzs
 
 
 
-### Giving Admin Role
+//Giving Admin Role
+### 
 POST http://localhost:5000/api/auth/register
 Content-Type: application/json
 
@@ -519,7 +675,190 @@ Content-Type: application/json
             "password": "pass"
         }
         
-        
-### Admin User 
+
+/////////////////////////////////////////Users/////////////////////////////////////////
+
+ //getting all users using admin token       
+### 
+GET http://localhost:5000/api/users/
+Authorization:.eyJzdWIiOiJFcmljIE5nZWNodSIsInJvbGUiOiJhZG1pbiIsImV4cCI6MTcxODI5NjQ5OX0.6wO7dmApjwosrPiDBnxcWFFeB9bBViRjNErJufSqp2w
+
+//creating a user using admin token
+###
+POST http://localhost:5000/api/users
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJFcmljIE5nZWNodSIsInJvbGUiOiJhZG1pbiIsImV4cCI6MTcxODI4NzIxMX0.gfSDIYPu8rQc679qUnbUXTAgfd0a1BPUZEz_a6Lf1QQ
+Content-Type: application/json
+
+{ 
+    "name": "Optimus Prime",
+    "contact_phone": "2341237890",
+    "phone_verified": true,
+    "email": "optimusprime@example.com",
+    "email_verified": true,
+    "confirmation_code": null,
+    "password": "optimusprime"
+}
+
+
+//updating a user using admin token
+###
+PUT http://localhost:5000/api/users/16
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJFcmljIE5nZWNodSIsInJvbGUiOiJhZG1pbiIsImV4cCI6MTcxODI4NzIxMX0.gfSDIYPu8rQc679qUnbUXTAgfd0a1BPUZEz_a6Lf1QQ
+Content-Type: application/json
+
+{ 
+    "name": "Optimus Prime",
+    "contact_phone": "2341237890",
+    "phone_verified": true,
+    "email": "optimusprime234@gmail.com",
+    "email_verified": true,
+    "confirmation_code": null,
+    "password": "optimusprime"
+}
+
+
+//deleting a user using admin token
+###
+DELETE http://localhost:5000/api/users/15
+Authorization:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJFcmljIE5nZWNodSIsInJvbGUiOiJhZG1pbiIsImV4cCI6MTcxODI4NzIxMX0.gfSDIYPu8rQc679qUnbUXTAgfd0a1BPUZEz_a6Lf1QQ
+
+
+//getting a user by id using admin token
+###
+GET http://localhost:5000/api/users/15
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJFcmljIE5nZWNodSIsInJvbGUiOiJhZG1pbiIsImV4cCI6MTcxODI4NzIxMX0.gfSDIYPu8rQc679qUnbUXTAgfd0a1BPUZEz_a6Lf1QQ
+
+//getting a user by id using user token
+###
+GET http://localhost:5000/api/users/15
+Authorization:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJPcHRpbXVzIFByaW1lIiwicm9sZSI6InVzZXIiLCJleHAiOjE3MTgyODk4MzB9.cJck3gu_qz2lk6ZV2D8oAqlOKbopyMw3ke-csosQvzs
+
+//getting all users using user token
+###
 GET http://localhost:5000/api/users
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJFcmljIE5nZWNodSIsInJvbGUiOiJhZG1pbiIsImV4cCI6MTcxODE2ODgyNn0.FnK0syCdHgPtl35eL9MoXt5SvhrZz5Zb5QVgHajRyBA
+Authorization:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJPcHRpbXVzIFByaW1lIiwicm9sZSI6InVzZXIiLCJleHAiOjE3MTgyODk4MzB9.cJck3gu_qz2lk6ZV2D8oAqlOKbopyMw3ke-csosQvzs
+
+
+/////////////////////////////////////////Address/////////////////////////////////////////
+//getting all addresses using admin token
+###
+GET http://localhost:5000/api/addresses/
+Authorization:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJFcmljIE5nZWNodSIsInJvbGUiOiJhZG1pbiIsImV4cCI6MTcxODI4NzIxMX0.gfSDIYPu8rQc679qUnbUXTAgfd0a1BPUZEz_a6Lf1QQ
+
+//getting an address by id using admin token
+###
+GET http://localhost:5000/api/addresses/38
+Authorization:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJFcmljIE5nZWNodSIsInJvbGUiOiJhZG1pbiIsImV4cCI6MTcxODI4NzIxMX0.gfSDIYPu8rQc679qUnbUXTAgfd0a1BPUZEz_a6Lf1QQ
+
+//getting an address by id using user token
+###
+GET http://localhost:5000/api/addresses/38
+Authorization:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJPcHRpbXVzIFByaW1lIiwicm9sZSI6InVzZXIiLCJleHAiOjE3MTgyODk4MzB9.cJck3gu_qz2lk6ZV2D8oAqlOKbopyMw3ke-csosQvzs
+
+//getting all addresses using user token
+###
+GET http://localhost:5000/api/addresses
+Authorization:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ2aWN0b3IgUGVhY2UiLCJyb2xlIjoidXNlciIsImV4cCI6MTcxODI4OTcxMX0.C5pauqJ_TU3jU6G09-ipZxOnD4swv0pyWHBlBLSlvEc
+
+
+
+//creating an address using admin token
+###
+POST http://localhost:5000/api/addresses
+Authorization:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJFcmljIE5nZWNodSIsInJvbGUiOiJhZG1pbiIsImV4cCI6MTcxODI4NzIxMX0.gfSDIYPu8rQc679qUnbUXTAgfd0a1BPUZEz_a6Lf1QQ
+Content-Type: application/json
+
+{
+    "street_address_1": "Eldoret",
+    "street_address_2": "Kapsoya",
+    "city_id": 3,
+    "zip_code": "10100",
+    "delivery_instructions": "Deliver to the shop next to the church",
+    "user_id": 15
+}
+
+//updating an address using admin token
+###
+PUT http://localhost:5000/api/addresses/43
+Authorization:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJFcmljIE5nZWNodSIsInJvbGUiOiJhZG1pbiIsImV4cCI6MTcxODI4NzIxMX0.gfSDIYPu8rQc679qUnbUXTAgfd0a1BPUZEz_a6Lf1QQ
+Content-Type: application/json
+
+{
+    "street_address_1": "Eldoret",
+    "street_address_2": "Kapsoya",
+    "city_id": 4,
+    "zip_code": "10100",
+    "delivery_instructions": "Deliver to the shop next to the church",
+    "user_id": 15
+}
+
+//deleting an address using admin token
+###
+DELETE http://localhost:5000/api/addresses/43
+Authorization:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJFcmljIE5nZWNodSIsInJvbGUiOiJhZG1pbiIsImV4cCI6MTcxODI4NzIxMX0.gfSDIYPu8rQc679qUnbUXTAgfd0a1BPUZEz_a6Lf1QQ
+
+/////////////////////////////////////////Cities/////////////////////////////////////////
+//getting all cities using admin token
+###
+GET http://localhost:5000/api/cities
+Authorization:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJFcmljIE5nZWNodSIsInJvbGUiOiJhZG1pbiIsImV4cCI6MTcxODI4NzIxMX0.gfSDIYPu8rQc679qUnbUXTAgfd0a1BPUZEz_a6Lf1QQ
+
+
+//getting a city by id using admin token
+###
+GET http://localhost:5000/api/cities/1
+Authorization:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJFcmljIE5nZWNodSIsInJvbGUiOiJhZG1pbiIsImV4cCI6MTcxODI4NzIxMX0.gfSDIYPu8rQc679qUnbUXTAgfd0a1BPUZEz_a6Lf1QQ
+
+//getting a city by id using user token
+###
+GET http://localhost:5000/api/cities/3
+Authorization:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ2aWN0b3IgUGVhY2UiLCJyb2xlIjoidXNlciIsImV4cCI6MTcxODI4OTcxMX0.C5pauqJ_TU3jU6G09-ipZxOnD4swv0pyWHBlBLSlvEc
+
+
+//creating a city using admin token
+###
+POST http://localhost:5000/api/cities
+Authorization:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJFcmljIE5nZWNodSIsInJvbGUiOiJhZG1pbiIsImV4cCI6MTcxODI4NzIxMX0.gfSDIYPu8rQc679qUnbUXTAgfd0a1BPUZEz_a6Lf1QQ
+Content-Type: application/json
+
+{
+    "name": "Malindi",
+    "state_id": 4
+}
+
+//updating a city using admin token
+###
+PUT http://localhost:5000/api/cities/1
+Authorization:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJFcmljIE5nZWNodSIsInJvbGUiOiJhZG1pbiIsImV4cCI6MTcxODI4NzIxMX0.gfSDIYPu8rQc679qUnbUXTAgfd0a1BPUZEz_a6Lf1QQ
+Content-Type: application/json
+
+{
+    "name": "Mombasa",
+    "state_id": 7
+}
+
+//deleting a city using admin token
+###
+DELETE http://localhost:5000/api/cities/1
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJFcmljIE5nZWNodSIsInJvbGUiOiJhZG1pbiIsImV4cCI6MTcxODI4NzIxMX0.gfSDIYPu8rQc679qUnbUXTAgfd0a1BPUZEz_a6Lf1QQ
+
+//getting all city  using user token
+###
+GET http://localhost:5000/api/cities
+Authorization:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJPcHRpbXVzIFByaW1lIiwicm9sZSI6InVzZXIiLCJleHAiOjE3MTgyODk4MzB9.cJck3gu_qz2lk6ZV2D8oAqlOKbopyMw3ke-csosQvzs
+
+/////////////////////////////////////////Comments/////////////////////////////////////////
+//getting all comments using admin token
+###
+GET http://localhost:5000/api/comments
+Authorization:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJFcmljIE5nZWNodSIsInJvbGUiOiJhZG1pbiIsImV4cCI6MTcxODI4NzIxMX0.gfSDIYPu8rQc679qUnbUXTAgfd0a1BPUZEz_a6Lf1QQ
+
+//getting a comment by id using admin token
+###
+GET http://localhost:5000/api/comments/22
+Authorization:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJFcmljIE5nZWNodSIsInJvbGUiOiJhZG1pbiIsImV4cCI6MTcxODI4NzIxMX0.gfSDIYPu8rQc679qUnbUXTAgfd0a1BPUZEz_a6Lf1QQ
+
+//getting a comment by id using user token
+###
+GET http://localhost:5000/api/comments/23
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJPcHRpbXVzIFByaW1lIiwicm9sZSI6InVzZXIiLCJleHAiOjE3MTgyODk4MzB9.cJck3gu_qz2lk6ZV2D8oAqlOKbopyMw3ke-csosQvzs

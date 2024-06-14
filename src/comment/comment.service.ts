@@ -38,3 +38,13 @@ export const deleteCommentService = async (id: number) => {
   await db.delete(Comment).where(eq(Comment.id, id));
   return "Comment deleted successfully";
 };
+
+//get comment with user and order
+export const commentWithUserOrderService = async () => {
+  return await db.query.Comment.findMany({
+    with: {
+      user: true,
+      order: true,
+    },
+  });
+};

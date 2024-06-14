@@ -6,6 +6,7 @@ import {
   createCommentService,
   updateCommentService,
   deleteCommentService,
+  commentWithUserOrderService,
 } from "./comment.service";
 
 import { undefined } from "zod";
@@ -87,6 +88,20 @@ export const deleteComment = async (c: Context) => {
     const result = await deleteCommentService(id);
 
     return c.json({ message: result }, 200);
+  } catch (error: any) {
+    return c.json({ error: error?.message }, 500);
+  }
+};
+
+
+//get comment with user and order
+export const commentWithUserOrder = async (c: Context) => {
+  try {
+    const comment = await commentWithUserOrderService();
+    if (comment == null || comment.length == 0) {
+      return c.text("No comment found", 404);
+    }
+    return c.json(comment, 200);
   } catch (error: any) {
     return c.json({ error: error?.message }, 500);
   }

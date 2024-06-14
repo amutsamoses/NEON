@@ -42,3 +42,13 @@ export const deleteOrderStatusService = async (id: number) => {
   await db.delete(OrderStatus).where(eq(OrderStatus.id, id));
   return "OrderStatus deleted successfully";
 };
+
+//get order_status with order and status_catalog
+export const orderStatusWithOrderStatusCatalogService = async () => {
+  return await db.query.OrderStatus.findMany({
+    with: {
+      order: true,
+      statusCatalog: true,
+    },
+  });
+};

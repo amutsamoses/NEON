@@ -71,6 +71,20 @@
       "when": 1718100110495,
       "tag": "0009_thick_valeria_richards",
       "breakpoints": true
+    },
+    {
+      "idx": 10,
+      "version": "7",
+      "when": 1718199925007,
+      "tag": "0010_colossal_baron_strucker",
+      "breakpoints": true
+    },
+    {
+      "idx": 11,
+      "version": "7",
+      "when": 1718200236102,
+      "tag": "0011_wooden_kid_colt",
+      "breakpoints": true
     }
   ]
 }

@@ -10,14 +10,21 @@ import {
   createComment,
   updateComment,
   deleteComment,
+  commentWithUserOrder,
 } from "./comment.controller";
+
+import {
+  adminRoleAuth,
+  userRoleAuth,
+  bothRoleAuth,
+} from "../middleware/bearAuth";
 
 export const commentRouter = new Hono();
 
 //get all comments
-commentRouter.get("/comments", listComments);
+commentRouter.get("/comments", bothRoleAuth, listComments);
 
-commentRouter.get("/comments/:id", getSingleComment);
+commentRouter.get("/comments/:id", bothRoleAuth, getSingleComment);
 
 commentRouter.post(
   "/comments",
@@ -26,6 +33,7 @@ commentRouter.post(
       return c.json(results.error, 400);
     }
   }),
+  userRoleAuth,
   createComment
 );
 
@@ -36,7 +44,10 @@ commentRouter.put(
       return c.json(results.error, 400);
     }
   }),
+  userRoleAuth,
   updateComment
 );
 
-commentRouter.delete("/comments/:id", deleteComment);
+commentRouter.delete("/comments/:id", userRoleAuth, deleteComment);
+
+commentRouter.get("/comment_with_user_order", commentWithUserOrder);

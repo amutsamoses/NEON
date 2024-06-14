@@ -50,3 +50,5 @@ export const deleteStatusCatalogService = async (id: number) => {
   await db.delete(StatusCatalog).where(eq(StatusCatalog.id, id));
   return "Status Catalog deleted successfully";
 };
+
+//get status catalog with order_status

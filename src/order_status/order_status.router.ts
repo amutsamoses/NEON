@@ -9,6 +9,7 @@ import {
   createOrderStatus,
   updateOrderStatus,
   deleteOrderStatus,
+  orderStatusWithOrderStatusCatalog,
 } from "./order_status.controller";
 
 export const orderStatusRouter = new Hono();
@@ -39,3 +40,8 @@ orderStatusRouter.put(
 );
 
 orderStatusRouter.delete("/orderStatuses/:id", deleteOrderStatus);
+
+orderStatusRouter.get(
+  "/order_status_with_order_status_catalog",
+  orderStatusWithOrderStatusCatalog
+);

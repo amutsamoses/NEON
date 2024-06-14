@@ -6,6 +6,7 @@ import {
   createOrderStatusService,
   updateOrderStatusService,
   deleteOrderStatusService,
+  orderStatusWithOrderStatusCatalogService,
 } from "./order_status.service";
 
 export const listOrderStatuses = async (c: Context) => {
@@ -87,6 +88,20 @@ export const deleteOrderStatus = async (c: Context) => {
 
     const result = await deleteOrderStatusService(id);
     return c.json({ message: result }, 200);
+  } catch (error: any) {
+    return c.json({ error: error?.message }, 500);
+  }
+};
+
+
+//get order_status with order and status_catalog
+export const orderStatusWithOrderStatusCatalog = async (c: Context) => {
+  try {
+    const orderStatus = await orderStatusWithOrderStatusCatalogService();
+    if (orderStatus == null || orderStatus.length == 0) {
+      return c.text("No orderStatus found", 404);
+    }
+    return c.json(orderStatus, 200);
   } catch (error: any) {
     return c.json({ error: error?.message }, 500);
   }

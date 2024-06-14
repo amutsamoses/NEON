@@ -7,14 +7,19 @@ import {
   createCity,
   updateCity,
   deleteCity,
+  cityWithStateAndAddress,
 } from "./city.controller";
-import { get } from "http";
+import {
+  adminRoleAuth,
+  userRoleAuth,
+  bothRoleAuth,
+} from "../middleware/bearAuth";
 import { citySchema } from "../validators";
 
 export const cityRouter = new Hono();
 
-cityRouter.get("/cities", listCities);
-cityRouter.get("/cities/:id", getSingleCity);
+cityRouter.get("/cities", bothRoleAuth, listCities);
+cityRouter.get("/cities/:id", bothRoleAuth, getSingleCity);
 cityRouter.post(
   "/cities",
   zValidator("json", citySchema, (results, c) => {
@@ -22,7 +27,10 @@ cityRouter.post(
       return c.json(results.error, 400);
     }
   }),
+  adminRoleAuth,
   createCity
 );
-cityRouter.put("/cities/:id", updateCity);
-cityRouter.delete("/cities/:id", deleteCity);
+cityRouter.put("/cities/:id", adminRoleAuth, updateCity);
+cityRouter.delete("/cities/:id", adminRoleAuth, deleteCity);
+
+cityRouter.get("/cities_with_state_addresses", cityWithStateAndAddress);
