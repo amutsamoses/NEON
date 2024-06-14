@@ -62,53 +62,185 @@ app.get("/ok", (c) => {
   return c.html(
     html`
       <head>
-        <title>Restaurant Management System</title>
-
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Kephar Moses' Restaurant</title>
         <style>
           body {
-            font-family: Arial, sans-serif;
-            background-color: #f8f9fa;
             margin: 0;
-            padding: 0;
+            font-family: Arial, sans-serif;
+            background: url("/mnt/data/final.png") no-repeat center center fixed;
+            background-size: cover;
+            color: #4f4b4b;
             display: flex;
-            justify-content: center;
-            align-items: center;
+            flex-direction: column;
             height: 100vh;
-            color: #333;
           }
-          .container {
+          .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 60px 40px;
+            background: rgba(0, 0, 0, 0.7);
+          }
+          .navbar a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 15px;
+            font-size: 16px;
+          }
+          .navbar a:hover {
+            text-decoration: underline;
+            color: #26d042;
+            transition: 0.2s;
+          }
+          .content {
             text-align: center;
-            background-color: #ffffff;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin: auto;
             padding: 20px;
-            max-width: 400px;
-            width: 90%;
           }
-          h1 {
-            color: #343a40;
-            margin-bottom: 10px;
+          .content h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            color: rgba(0, 0, 0, 0.9);
           }
-          p {
-            font-size: 1.1em;
+          .content p {
+            font-size: 24px;
+            margin-bottom: 40px;
+            color: rgba(0, 0, 0, 0.9);
+          }
+          .content .view-menu-btn {
+            position: absolute;
+            background-color: #0a0a23;
+            color: #fff;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 10px;
+            font-size: 18px;
+          }
+          .content .view-menu-btn:hover {
+            background-color: #002ead;
+            transition: 0.2s;
+          }
+          .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 250px;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            padding: 20px;
+            box-sizing: border-box;
+            transform: translateX(-100%);
+            transition: transform 0.3s ease-in-out;
+          }
+          .sidebar.active {
+            transform: translateX(0);
+          }
+          .sidebar h2 {
+            color: #fff;
             margin-bottom: 20px;
           }
+          .sidebar ul {
+            list-style: none;
+            padding: 0;
+          }
+          .sidebar ul li {
+            margin-bottom: 15px;
+          }
+          .sidebar ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 18px;
+          }
+          .sidebar ul li a:hover {
+            text-decoration: underline;
+            color: #0d930b;
+            transition: 0.2s;
+          }
+          .menu-btn {
+            position: fixed;
+            left: 20px;
+            top: 20px;
+            background: rgba(0, 0, 0, 0.7);
+            color: #fff;
+            border: none;
+            padding: 10px 15px;
+            cursor: pointer;
+            font-size: 16px;
+            z-index: 1000;
+          }
+          .menu-btn img {
+            height: 20px;
+            width: 20px;
+          }
+          .logo img {
+            height: 50px;
+          }
           .footer {
-            font-size: 0.9em;
-            color: #6c757d;
+            background: rgba(0, 0, 0, 0.7);
+            color: #fff;
+            text-align: center;
+            padding: 10px 0;
+            position: absolute;
+            bottom: 0;
+            width: 100%;
           }
         </style>
       </head>
       <body>
-        <div class="container">
+        <button class="menu-btn" onclick="toggleSidebar()">
+          <img
+            src="https://img.icons8.com/material-outlined/24/ffffff/menu--v1.png"
+            alt="Menu Icon"
+          />
+        </button>
+        <div class="navbar">
+          <div class="logo">
+            <img
+              src="https://img.icons8.com/fluent/48/000000/restaurant.png"
+              alt="Restaurant Logo"
+            />
+          </div>
+          <div class="nav-links">
+            <a href="#home">Home</a>
+            <a href="#orders">Orders</a>
+            <a href="#menu">Menu</a>
+            <a href="#contact">Contact</a>
+            <a href="#about">About Us</a>
+          </div>
+        </div>
+        <div class="content">
           <h1>Welcome to Kephar's Eatery 🍽️</h1>
           <p>
-            Hello! I'm Kephar Moses, and this is my restaurant API. Discover the
-            finest cuisines, explore our menu, and make reservations
-            effortlessly. 🍕🍔🍜
+            Discover the finest cuisines, explore our menu, and make
+            reservations effortlessly. 🍕🍔🍜
           </p>
-          <div class="footer">&copy; 2024 Kephar Moses</div>
+          <a href="#menu" class="view-menu-btn">View Menu</a>
         </div>
+        <div class="sidebar" id="sidebar">
+          <ul>
+            <li><a href="#account">Account</a></li>
+            <li><a href="#settings">Settings</a></li>
+            <li><a href="#address">Address</a></li>
+            <li><a href="#comments">Comments</a></li>
+            <li><a href="#location">Location</a></li>
+            <li><a href="#order_status">Order Status</a></li>
+            <li><a href="#category">Category</a></li>
+            <li><a href="#city">City</a></li>
+            <li><a href="#driver">Driver</a></li>
+            <li><a href="#restaurant_owner">Restaurant Owner</a></li>
+            <li><a href="#status_catalog">Status Catalog</a></li>
+            <li><a href="#state">State</a></li>
+          </ul>
+        </div>
+        <div class="footer">&copy; 2024 Kephar Moses</div>
+        <script>
+          function toggleSidebar() {
+            const sidebar = document.getElementById("sidebar");
+            sidebar.classList.toggle("active");
+          }
+        </script>
       </body>
     `
   );
