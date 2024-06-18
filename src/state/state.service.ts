@@ -6,10 +6,11 @@ import { TIState, TSState, State } from "../drizzle/schema";
 export const stateService = async (): Promise<TSState[] | null> => {
   return await db.query.State.findMany();
 };
+
 //get one state
 export const getStateService = async (
   id: number
-): Promise<TIState | undefined> => {
+): Promise<TSState | undefined> => {
   return await db.query.State.findFirst({
     where: eq(State.id, id),
   });

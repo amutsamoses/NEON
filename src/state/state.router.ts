@@ -8,7 +8,6 @@ import {
   deleteState,
   stateWithCity,
 } from "./state.controller";
-import { get } from "http";
 import { stateSchema } from "../validators";
 
 export const stateRouter = new Hono();

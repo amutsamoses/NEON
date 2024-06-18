@@ -1,1 +1,0 @@
-ALTER TABLE "auth_tokens" ALTER COLUMN "password" DROP NOT NULL;

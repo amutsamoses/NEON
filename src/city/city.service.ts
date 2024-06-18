@@ -9,7 +9,7 @@ export const cityService = async (): Promise<TSCity[] | null> => {
 //get one city
 export const getCityService = async (
   id: number
-): Promise<TICity | undefined> => {
+): Promise<TSCity | undefined> => {
   return await db.query.City.findFirst({
     where: eq(City.id, id),
   });

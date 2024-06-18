@@ -1,12 +1,28 @@
 import db from "../drizzle/db";
-import { authTokens, TIAuthTokens, TSAuthTokens } from "../drizzle/schema";
+import {
+  authTokens,
+  TIAuthTokens,
+  TSAuthTokens,
+  Users,
+} from "../drizzle/schema";
 import { sql } from "drizzle-orm";
+import { eq } from "drizzle-orm";
 
 export const createAuthUserService = async (
   user: TIAuthTokens
 ): Promise<string | null> => {
-  await db.insert(authTokens).values(user);
+  //check if the user already exist
+  const userExist = await db
+    .select()
+    .from(Users)
+    .where(eq(Users.email, user.email))
+    .execute();
 
+  if (userExist.length > 0) {
+    throw new Error("user already exist");
+  }
+
+  await db.insert(authTokens).values(user);
   return "user created successfully! 👽";
 };
 
@@ -20,6 +36,7 @@ export const userLoginService = async (user: TSAuthTokens) => {
       username: true,
       role: true,
       password: true,
+      email: true,
     },
     where: sql`${authTokens.username} = ${username}`,
     with: {

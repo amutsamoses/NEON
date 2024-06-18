@@ -4,8 +4,10 @@ GET http://localhost:5000/api/ok
 
 
 ###
-GET http://localhost:5000/api/restaurants
+GET http://localhost:5000/api/restaurants/3
 
+
+###
 POST http://localhost:5000/api/restaurants
 Content-Type: application/json
 
@@ -38,7 +40,7 @@ DELETE http://localhost:5000/api/restaurants/1
 
 
 ###
-GET http://localhost:5000/api/states
+GET http://localhost:5000/api/states/2
 
 ###
 POST http://localhost:5000/api/states
@@ -63,7 +65,7 @@ DELETE http://localhost:5000/api/states/1
 
 
 ###
-GET http://localhost:5000/api/drivers
+GET http://localhost:5000/api/drivers/8
 
 ###
 POST http://localhost:5000/api/drivers
@@ -126,13 +128,14 @@ GET http://localhost:5000/api/users
 
 ###
 POST http://localhost:5000/api/users
+Authorization:  eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJKb2huIERvZSIsInJvbGUiOiJhZG1pbiIsImV4cCI6MTcxODc3NjYyMX0.8ZPGz8Yw8QHFvyE6GVOj9-fTEVMiF1GxrAtLhbO0VcU
 Content-Type: application/json
 
 { 
     "name": "victor Peace",
     "contact_phone": "1234567890",
     "phone_verified": false,
-    "email": "ericngechu@example.com",
+    "email": "kepharmoses307@gmail.com",
     "email_verified": false,
     "confirmation_code": null,
     "password": "123456"
@@ -197,7 +200,7 @@ Content-Type: application/json
 DELETE http://localhost:5000/api/addresses/1
 
 ###
-GET http://localhost:5000/api/orders
+GET http://localhost:5000/api/orders/44
 
 ###
 POST http://localhost:5000/api/orders
@@ -267,7 +270,7 @@ Content-Type: application/json
 DELETE http://localhost:5000/api/comments/26
 
 ###
-GET http://localhost:5000/api/categories
+GET http://localhost:5000/api/categories/1
 
 ###
 POST http://localhost:5000/api/categories
@@ -289,7 +292,7 @@ Content-Type: application/json
 DELETE http://localhost:5000/api/categories/1
 
 ###
-GET http://localhost:5000/api/menuItems
+GET http://localhost:5000/api/menuItems/2
 
 ###
 POST http://localhost:5000/api/menuItems
@@ -324,7 +327,7 @@ Content-Type: application/json
 DELETE http://localhost:5000/api/menuItems/1
 
 ###
-GET http://localhost:5000/api/restaurantOwners
+GET http://localhost:5000/api/restaurantOwners/7
 
 ###
 POST http://localhost:5000/api/restaurantOwners
@@ -349,7 +352,7 @@ DELETE http://localhost:5000/api/restaurantOwners/1
 
 
 ###
-GET http://localhost:5000/api/orderStatuses
+GET http://localhost:5000/api/orderStatuses/13
 
 ###
 POST http://localhost:5000/api/orderStatuses
@@ -480,8 +483,9 @@ Content-Type: application/json
 
     {
         "user_id": 1,
-        "username": "John Doe",
+        "username": "kephar moses",
         "password": "pass",
+        "email": "amuisamoses@gmail.com",
         "role": "user"    
     }
 
@@ -629,6 +633,7 @@ Content-Type: application/json
     {
         "user_id": 16,
         "username": "Optimus Prime",
+
         "password": "optimusprime",
         "role": "user"
     
@@ -655,10 +660,11 @@ POST http://localhost:5000/api/auth/register
 Content-Type: application/json
 
     {
-        "user_id": 10,
-        "username": "Eric Ngechu",
+        "user_id": 7,
+        "username": "Erick Ngechuu",
         "password": "pass",
-        "role": "admin"
+        "email": "ekngechu003@gmail.com",
+        "role": "user"
     
     }
 
@@ -668,13 +674,13 @@ POST http://localhost:5000/api/auth/login
 Content-Type: application/json
     
         {
-            "username": "Eric Ngechu",
+            "username": "victor Peace",
             "password": "pass"
         }
 
 ###
-GET http://localhost:5000/api/users/10 
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJFcmljIE5nZWNodSIsInJvbGUiOiJhZG1pbiIsImV4cCI6MTcxODM5NzQ3MH0.GAcQkr7QANBM-P_XHsoVpOFVsW0rX8R-tYjBMC1f3IA
+GET http://localhost:5000/api/users/4
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJKb2huIERvZSIsInJvbGUiOiJhZG1pbiIsImV4cCI6MTcxODc3NjYyMX0.8ZPGz8Yw8QHFvyE6GVOj9-fTEVMiF1GxrAtLhbO0VcU
 
 /////////////////////////////////////////Users/////////////////////////////////////////
 
@@ -685,14 +691,14 @@ Authorization:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJFcmljIE5nZWNodSIsI
 //creating a user using admin token
 ###
 POST http://localhost:5000/api/users
-Authorization:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJFcmljIE5nZWNodSIsInJvbGUiOiJhZG1pbiIsImV4cCI6MTcxODM5NzQ3MH0.GAcQkr7QANBM-P_XHsoVpOFVsW0rX8R-tYjBMC1f3IA
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJKb2huIERvZSIsInJvbGUiOiJhZG1pbiIsImV4cCI6MTcxODc3NjYyMX0.8ZPGz8Yw8QHFvyE6GVOj9-fTEVMiF1GxrAtLhbO0VcU
 Content-Type: application/json
 
 { 
-    "name": "Optimus Prime",
+    "name": "kephar moses",
     "contact_phone": "2341237890",
     "phone_verified": true,
-    "email": "optimusprime@example.com",
+    "email": "kepharmoses307@gmail.com",
     "email_verified": true,
     "confirmation_code": null,
     "password": "optimusprime"

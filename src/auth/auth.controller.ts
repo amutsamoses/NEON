@@ -3,6 +3,12 @@ import "dotenv/config";
 import { createAuthUserService, userLoginService } from "./auth.service";
 import * as bcrypt from "bcrypt";
 import { sign } from "hono/jwt";
+import { sendRegistrationEmail } from "../nodemailer/mail";
+import { jwt } from "hono/jwt";
+import { verify } from "hono/jwt";
+
+const secret = process.env.SECRET;
+const expiresIn = process.env.EXPIRES;
 
 export const registerUser = async (c: Context) => {
   try {
@@ -15,9 +21,25 @@ export const registerUser = async (c: Context) => {
     const createdUser = await createAuthUserService(user);
 
     if (!createdUser) {
-      return c.text("user not created!👽", 404);
+      return c.text("User not created!👽", 404);
+    } else if (createdUser === "user already exist") {
     }
-    return c.json({ msg: createdUser }, 201);
+
+    // Send registration email
+    const emailSubject = "Welcome to Kephar's Eatery";
+    const eventname = "Kephar's Eatery";
+    const emailResponse = await sendRegistrationEmail(user.email, eventname);
+    console.log(emailResponse);
+
+    // Check if the email was successfully sent
+    if (emailResponse && emailResponse.includes("not sent")) {
+      return c.json({ msg: "User registered but email not sent." }, 500);
+    }
+
+    return c.json(
+      { msg: "User registered successfully and email sent!👽" },
+      201
+    );
   } catch (error: any) {
     return c.json({ error: error?.message }, 400);
   }
@@ -63,5 +85,13 @@ export const loginUser = async (c: Context) => {
     }
   } catch (error: any) {
     return c.json({ error: error?.message }, 400);
+  }
+};
+
+export const verifyToken = (token: string) => {
+  try {
+    return verify(token, secret!);
+  } catch (error) {
+    throw new Error("Invalid token");
   }
 };

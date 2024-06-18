@@ -18,14 +18,18 @@ export const listCities = async (c: Context) => {
 
 //get single city
 export const getSingleCity = async (c: Context) => {
-  const id = parseInt(c.req.param("id"));
-  if (isNaN(id)) return c.text("invalid ID!", 400);
+  try {
+    const id = parseInt(c.req.param("id"));
+    if (isNaN(id)) return c.text("invalid ID!", 400);
 
-  const city = await getCityService(id);
-  if (city == undefined) {
-    return c.text("city not found!👽", 404);
+    const city = await getCityService(id);
+    if (city == null) {
+      return c.text("city not found!👽", 404);
+    }
+    return c.json(city, 200);
+  } catch (error: any) {
+    return c.json({ error: error?.message }, 400);
   }
-  return c.json(city, 200);
 };
 
 //create city

@@ -1,3 +1,9 @@
+DO $$ BEGIN
+ CREATE TYPE "public"."role" AS ENUM('admin', 'user', 'both');
+EXCEPTION
+ WHEN duplicate_object THEN null;
+END $$;
+--> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "address" (
 	"id" serial PRIMARY KEY NOT NULL,
 	"street_address_1" varchar(255) NOT NULL,
@@ -77,14 +83,12 @@ CREATE TABLE IF NOT EXISTS "order_status" (
 CREATE TABLE IF NOT EXISTS "orders" (
 	"id" serial PRIMARY KEY NOT NULL,
 	"restaurant_id" integer,
-	"estimated_delivery_time" timestamp,
-	"actual_delivery_time" timestamp,
 	"delivery_address_id" integer,
 	"user_id" integer,
 	"driver_id" integer,
-	"price" numeric NOT NULL,
-	"discount" numeric,
-	"final_price" numeric NOT NULL,
+	"price" integer NOT NULL,
+	"discount" integer,
+	"final_price" integer NOT NULL,
 	"comment" text,
 	"created_at" timestamp DEFAULT now(),
 	"updated_at" timestamp DEFAULT now()
@@ -122,10 +126,21 @@ CREATE TABLE IF NOT EXISTS "users" (
 	"name" varchar(255) NOT NULL,
 	"contact_phone" varchar(20),
 	"phone_verified" boolean DEFAULT false,
+	"password" varchar(255) NOT NULL,
 	"email" varchar(255) NOT NULL,
 	"email_verified" boolean DEFAULT false,
 	"confirmation_code" varchar(6),
+	"created_at" timestamp DEFAULT now(),
+	"updated_at" timestamp DEFAULT now()
+);
+--> statement-breakpoint
+CREATE TABLE IF NOT EXISTS "auth_tokens" (
+	"id" serial PRIMARY KEY NOT NULL,
+	"user_id" integer NOT NULL,
+	"username" varchar(255) NOT NULL,
 	"password" varchar(255) NOT NULL,
+	"email" varchar(255) NOT NULL,
+	"role" "role" DEFAULT 'user',
 	"created_at" timestamp DEFAULT now(),
 	"updated_at" timestamp DEFAULT now()
 );
@@ -240,6 +255,12 @@ END $$;
 --> statement-breakpoint
 DO $$ BEGIN
  ALTER TABLE "restaurant_owner" ADD CONSTRAINT "restaurant_owner_owner_id_users_id_fk" FOREIGN KEY ("owner_id") REFERENCES "public"."users"("id") ON DELETE cascade ON UPDATE no action;
+EXCEPTION
+ WHEN duplicate_object THEN null;
+END $$;
+--> statement-breakpoint
+DO $$ BEGIN
+ ALTER TABLE "auth_tokens" ADD CONSTRAINT "auth_tokens_user_id_users_id_fk" FOREIGN KEY ("user_id") REFERENCES "public"."users"("id") ON DELETE cascade ON UPDATE no action;
 EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;

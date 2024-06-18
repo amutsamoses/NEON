@@ -10,6 +10,8 @@ import {
 } from "./user.service";
 import * as bcrypt from "bcrypt";
 
+import { sendRegistrationEmail } from "../nodemailer/mail";
+
 export const listUsers = async (c: Context) => {
   const data = await userService();
   if (data == null) {
@@ -47,7 +49,14 @@ export const createUser = async (c: Context) => {
     if (!createdUser) {
       return c.text("user not created!👽", 404);
     }
-    return c.json({ msg: createdUser }, 201);
+
+    // Send registration email
+    const emailSubject: string = "Welcome to Kephar's Eatery";
+    const eventname: string = "Kephar's Eatery";
+    const emailResponse = await sendRegistrationEmail(user.email, eventname);
+    console.log("emailResponse:", emailResponse);
+
+    return c.json({ msg: createdUser, emailResponse }, 201);
   } catch (error: any) {
     return c.json({ error: error?.message }, 400);
   }
