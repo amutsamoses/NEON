@@ -695,10 +695,10 @@ Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJKb2huIERvZSIsInJv
 Content-Type: application/json
 
 { 
-    "name": "kephar moses",
+    "name": "Victor Peace",
     "contact_phone": "2341237890",
     "phone_verified": true,
-    "email": "kepharmoses307@gmail.com",
+    "email": "victorpeace47@gmail.com",
     "email_verified": true,
     "confirmation_code": null,
     "password": "optimusprime"
